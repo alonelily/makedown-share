@@ -1,0 +1,5 @@
+{
+  "name": "MarkShare AI",
+  "description": "A sleek, real-time Markdown editor with instant link sharing and AI-powered text enhancement using Gemini.",
+  "requestFramePermissions": []
+}
