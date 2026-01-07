@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { ViewMode } from './types';
 import Toolbar from './components/Toolbar';
 import MarkdownRenderer from './components/MarkdownRenderer';
