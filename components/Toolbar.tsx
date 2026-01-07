@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Icons } from './Icon';
 import { ViewMode } from '../types';
 
@@ -9,17 +9,13 @@ interface ToolbarProps {
   setViewMode: (mode: ViewMode) => void;
   onShare: () => void;
   onClear: () => void;
-  isAiLoading: boolean;
-  onAiEnhance: () => void;
 }
 
 const Toolbar: React.FC<ToolbarProps> = ({
   viewMode,
   setViewMode,
   onShare,
-  onClear,
-  isAiLoading,
-  onAiEnhance
+  onClear
 }) => {
   return (
     <div className="h-16 border-b border-gray-800 bg-gray-900/50 backdrop-blur-md flex items-center justify-between px-4 sticky top-0 z-50">
@@ -28,7 +24,7 @@ const Toolbar: React.FC<ToolbarProps> = ({
           <Icons.Columns className="text-white w-5 h-5" />
         </div>
         <h1 className="text-lg font-bold bg-clip-text text-transparent bg-gradient-to-r from-gray-100 to-gray-400 hidden sm:block">
-          MarkShare AI
+          MarkShare
         </h1>
       </div>
 
@@ -57,20 +53,6 @@ const Toolbar: React.FC<ToolbarProps> = ({
             <Icons.Eye size={18} />
           </button>
         </div>
-
-        {/* AI Action */}
-        <button
-          onClick={onAiEnhance}
-          disabled={isAiLoading}
-          className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-medium transition-all border border-purple-500/30
-            ${isAiLoading 
-              ? 'bg-purple-500/10 text-purple-400 cursor-not-allowed' 
-              : 'bg-purple-500/10 text-purple-400 hover:bg-purple-500/20 hover:border-purple-500/50'
-            }`}
-        >
-          <Icons.Sparkles size={16} className={isAiLoading ? 'animate-pulse' : ''} />
-          <span className="hidden sm:inline">{isAiLoading ? 'Thinking...' : 'AI Polish'}</span>
-        </button>
 
         <div className="h-6 w-px bg-gray-800 mx-1" />
 

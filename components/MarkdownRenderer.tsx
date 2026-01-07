@@ -8,7 +8,7 @@ interface MarkdownRendererProps {
 
 const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content }) => {
   return (
-    <div className="prose prose-invert prose-slate max-w-none w-full p-8 overflow-y-auto custom-scrollbar">
+    <div className="prose prose-invert prose-slate max-w-none w-full p-8">
       <ReactMarkdown 
         remarkPlugins={[remarkGfm]}
         components={{

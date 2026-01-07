@@ -1,20 +1,18 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import ReactMarkdown from 'react-markdown';
+import React, { useState, useEffect } from 'react';
 import { ViewMode } from './types';
 import Toolbar from './components/Toolbar';
 import MarkdownRenderer from './components/MarkdownRenderer';
 import { encodeStateToHash, decodeStateFromHash } from './services/urlService';
-import { enhanceMarkdown } from './services/geminiService';
 import { Icons } from './components/Icon';
 
-const DEFAULT_MARKDOWN = `# Welcome to MarkShare AI 👋
+const DEFAULT_MARKDOWN = `# Welcome to MarkShare 👋
 
 Paste your Markdown here, or type away!
 
 ## Features
 - **Real-time Preview**: See changes instantly.
-- **AI Powered**: Click 'AI Polish' to correct grammar or improve formatting using Gemini.
 - **Instant Sharing**: Click 'Share' to generate a permanent link.
+- **Beautiful Typography**: Clean and readable.
 
 \`\`\`javascript
 console.log("Code highlighting works too!");
@@ -26,7 +24,6 @@ console.log("Code highlighting works too!");
 function App() {
   const [markdown, setMarkdown] = useState<string>("");
   const [viewMode, setViewMode] = useState<ViewMode>(ViewMode.SPLIT);
-  const [isAiLoading, setIsAiLoading] = useState(false);
   const [toast, setToast] = useState<{ msg: string; type: 'success' | 'error' | 'info' } | null>(null);
 
   // Initialize from URL or Default
@@ -84,24 +81,6 @@ function App() {
     }
   };
 
-  const handleAiEnhance = async () => {
-    if (!process.env.API_KEY) {
-      showToast("API Key missing. Cannot use AI.", 'error');
-      return;
-    }
-    
-    setIsAiLoading(true);
-    try {
-      const improved = await enhanceMarkdown(markdown, "Fix grammar, improve formatting consistency, and ensure a professional tone.");
-      setMarkdown(improved);
-      showToast("Markdown enhanced by Gemini!");
-    } catch (error) {
-      showToast("AI enhancement failed. Try again.", 'error');
-    } finally {
-      setIsAiLoading(false);
-    }
-  };
-
   const handleClear = () => {
     if (confirm("Are you sure you want to clear the editor?")) {
       setMarkdown("");
@@ -118,8 +97,6 @@ function App() {
         setViewMode={setViewMode}
         onShare={handleShare}
         onClear={handleClear}
-        isAiLoading={isAiLoading}
-        onAiEnhance={handleAiEnhance}
       />
 
       <main className="flex-1 flex overflow-hidden relative">
